@@ -14,7 +14,7 @@ class UserController {
 
     onEdit(){
 
-        document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e=>{
+        document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e =>{ 
 
             this.showPanelCreate();
 
@@ -51,21 +51,19 @@ class UserController {
 
                     user.loadFromJSON(result);
 
-                    user.save().then(user=>{
+                    user.save().then(user => {
 
                         this.getTr(user, tr);
 
                         this.updateCount();
-    
+
                         this.formUpdateEl.reset();
-    
+
                         btn.disabled = false;
-    
+
                         this.showPanelCreate();
 
                     });
-
-                    
 
                 },
                 (e) => {
@@ -96,12 +94,12 @@ class UserController {
                     
                     values.photo = content;
 
-                    values.save().then(user=>{
+                    values.save().then(user => {
 
                         this.addLine(user);
 
                         this.formEl.reset();
-    
+
                         btn.disabled = false;
 
                     });
@@ -205,10 +203,9 @@ class UserController {
 
     selectAll(){
 
+        User.getUsersStorage().then(data => {
 
-        User.getUsersStorage().then(data =>{
-
-            data.users.forEach(dataUser=>{
+            data.users.forEach(dataUser => {
 
                 let user = new User();
     
@@ -266,13 +263,13 @@ class UserController {
 
                 user.loadFromJSON(JSON.parse(tr.dataset.user));
 
-                user.remove().then(data =>{
+                user.remove().then(data => {
+
                     tr.remove();
 
                     this.updateCount();
-                });
 
-                
+                });
 
             }
 

@@ -1,4 +1,4 @@
-class User {//
+class User {
 
     constructor(name, gender, birth, country, email, password, photo, admin){
 
@@ -80,18 +80,17 @@ class User {//
 
     static getUsersStorage() {
 
-        return HttpRequest.get("/users");
+        return Fetch.get('/users');
 
     }
 
-
-    toJSON(){
+    toJSON () {
 
         let json = {};
 
-        Object.keys(this).forEach(key=>{
+        Object.keys(this).forEach(key => {
 
-          if(this[key] !== undefined)  json[key] = this[key];
+            if (this[key] !== undefined) json[key] = this[key];
 
         });
 
@@ -101,41 +100,39 @@ class User {//
 
     save(){
 
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
 
             let promise;
 
-            if(this.id){
-    
-                promise = HttpRequest.put(`/users/${this.id}`, this.toJSON());
-    
-            }else{
-    
-                promise = HttpRequest.post(`/users`, this.toJSON());
-    
+            if (this.id) {
+
+                promise = Fetch.put(`/users/${this.id}`, this.toJSON());
+
+            } else {
+
+                promise = Fetch.post(`/users`, this.toJSON());
+
             }
-    
-            promise.then(data=>{
-    
+
+            promise.then(data => {
+
                 this.loadFromJSON(data);
 
                 resolve(this);
-    
+
+            }).catch(e => {
+
+                reject(e);
+
             });
 
-        }).catch(e=>{
-
-            reject(e);
-
         });
-
-        
 
     }
 
     remove(){
 
-       HttpRequest.delete(`/users/${this.id}`);
+        return Fetch.delete(`/users/${this.id}`);
 
     }
 
