@@ -42,7 +42,7 @@ class HttpRequest{
             
             ajax.onload = event =>{
         
-                let obj = { };
+                let obj = {};
             
                 try{
         
@@ -59,7 +59,9 @@ class HttpRequest{
 
             };
         
-            ajax.send();
+            ajax.setRequestHeader('Content-Type','aplication/json');
+
+            ajax.send(JSON.stringify(params));
 
 
         });
